@@ -47,6 +47,7 @@ export default function Login() {
     control,
     handleSubmit,
     setValue,
+    trigger,
     formState: { errors },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -57,6 +58,12 @@ export default function Login() {
       turnstile_token: "",
     },
   });
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      trigger();
+    }
+  }, [t]);
 
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
