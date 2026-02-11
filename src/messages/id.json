@@ -1,0 +1,99 @@
+{
+  "home": {
+    "title": "Selamat Datang di ESIA PNP",
+    "description": "Mulai dengan mengedit file page.tsx."
+  },
+  "navigation": {
+    "templates": "Template",
+    "learn": "Pelajari"
+  },
+  "login": {
+    "title": "LOGIN",
+    "welcome": "Selamat datang di Sistem Informasi Akademik Politeknik Negeri Padang! Silakan masuk ke akun Anda.",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "2411882290",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "Ingat saya",
+    "forgotPassword": "Lupa password?",
+    "submit": "Masuk",
+    "submitting": "Memuat...",
+    "api": {
+      "success": "Login berhasil, mengalihkan...",
+      "invalid_credentials": "Username atau password salah",
+      "missing_fields": "Username dan password wajib diisi",
+      "server_error": "Terjadi kesalahan pada server",
+      "unknown_error": "Terjadi kesalahan yang tidak diketahui",
+      "turnstile_verification_failed": "Verifikasi gagal",
+      "connection_error": "Kesalahan koneksi"
+    },
+    "validation": {
+      "usernameRequired": "Username wajib diisi",
+      "passwordMinLength": "Password minimal 6 karakter",
+      "turnstileRequired": "Verifikasi wajib diisi"
+    },
+    "forgotPasswordDialog": {
+      "title": "Lupa Password?",
+      "description": "Silahkan hubungi admin akademik untuk melakukan reset password."
+    },
+    "passwordVisibility": {
+      "show": "Tampilkan password",
+      "hide": "Sembunyikan password"
+    },
+    "siteKeyError": "Error Site Key",
+    "devInfo": {
+      "title": "Informasi Akun (Development)",
+      "admin": "Admin: username 'admin' | pass 'admin123'",
+      "mahasiswa": "Mahasiswa: username '2411882290' | pass 'password123'"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Selamat datang kembali,",
+    "roleLabel": "Peran",
+    "loading": "Memuat data pengguna...",
+    "error": "Gagal memuat data pengguna",
+    "unauthorized": "Sesi Anda telah berakhir, silakan login kembali"
+  },
+  "logout": {
+    "button": "Keluar",
+    "loading": "Keluar...",
+    "success": "Berhasil keluar",
+    "error": "Gagal keluar",
+    "confirmTitle": "Konfirmasi Keluar",
+    "confirmMessage": "Apakah Anda yakin ingin keluar?"
+  },
+  "api": {
+    "user": {
+      "unauthorized": "Tidak diizinkan",
+      "not_found": "Pengguna tidak ditemukan",
+      "error": "Terjadi kesalahan saat mengambil data pengguna"
+    },
+    "logout": {
+      "success": "Logout berhasil",
+      "error": "Gagal logout"
+    }
+  },
+  "common": {
+    "loading": "Memuat...",
+    "error": "Terjadi kesalahan",
+    "success": "Berhasil",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Ubah",
+    "close": "Tutup",
+    "search": "Cari",
+    "filter": "Filter",
+    "reset": "Reset",
+    "confirm": "Konfirmasi",
+    "yes": "Ya",
+    "no": "Tidak"
+  },
+  "errors": {
+    "notFound": "Halaman tidak ditemukan",
+    "serverError": "Kesalahan server",
+    "unauthorized": "Tidak diizinkan",
+    "forbidden": "Akses ditolak"
+  }
+}

@@ -1,0 +1,298 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum Role {
+  mahasiswa
+  admin
+}
+
+enum JenisKelamin {
+  L
+  P
+}
+
+enum Agama {
+  islam
+  kristen
+  katolik
+  hindu
+  buddha
+  konghucu
+  lainnya
+}
+
+enum StatusMenikah {
+  belum_menikah
+  menikah
+  duda
+  janda
+}
+
+enum StatusTempatTinggal {
+  milik_ortu
+  milik_saudara
+  kontrak
+  kos
+  milik_sendiri
+  wali
+  asrama
+  panti_asuhan
+}
+
+enum SumberBiayaKuliah {
+  ortu
+  beasiswa
+  sendiri
+  saudara
+}
+
+enum Jurusan {
+  teknologi_informasi
+  teknik_mesin
+  teknik_sipil
+  bahasa_inggris
+  administrasi_niaga
+  teknik_elektro
+  akuntansi
+}
+
+enum KeadaanOrangTua {
+  Hidup
+  Meninggal
+  Bercerai // Hanya valid untuk Ayah/Ibu di migrasi Anda, Wali tidak punya opsi ini tapi bisa digunakan ulang jika perlu
+}
+
+enum KeadaanWali {
+  Hidup
+  Meninggal
+}
+
+enum PendidikanTerakhir {
+  TIDAK_SEKOLAH   @map("Tidak Sekolah")
+  SD_MI           @map("SD/MI")
+  SMP_MTS         @map("SMP/Mts")
+  SLTA_SMA_SMU_MA @map("SLTA/SMA/SMU/MA")
+  D1
+  D2
+  D3
+  D4_S1           @map("D4/S1")
+  S2
+  S3
+}
+
+enum Penghasilan {
+  KURANG_DARI_500K     @map("< 500.000")
+  RANGE_500K_999K      @map("500.000 - 999.999")
+  RANGE_1M_1_9M        @map("1.000.000 - 1.999.999")
+  RANGE_2M_4_9M        @map("2.000.000 - 4.999.999")
+  RANGE_5M_20M         @map("5.000.000 - 20.000.000")
+  LEBIH_DARI_20M       @map("> 20.000.000")
+  TIDAK_BERPENGHASILAN @map("Tidak Berpenghasilan")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  role      Role     @default(mahasiswa)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  mahasiswa Mahasiswa?
+
+  @@map("users")
+}
+
+model Mahasiswa {
+  id     String @id @default(uuid())
+  userId String @unique @map("user_id") // Foreign Key
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Profil
+  fotoProfil      String? @map("foto_profil")
+  statusMahasiswa String  @default("aktif") @map("status_mahasiswa")
+
+  // Data Pribadi
+  nim          String        @unique
+  namaLengkap  String        @map("nama_lengkap")
+  tempatLahir  String?       @map("tempat_lahir")
+  tanggalLahir DateTime?     @map("tanggal_lahir") @db.Date
+  jenisKelamin JenisKelamin? @map("jenis_kelamin")
+  agama        Agama?
+
+  // Alamat Asal
+  alamatAsal        String? @map("alamat_asal") @db.Text
+  provinsiAsal      String? @map("provinsi_asal")
+  kotaKabupatenAsal String? @map("kota_kabupaten_asal")
+  kecamatanAsal     String? @map("kecamatan_asal")
+  kelurahanAsal     String? @map("kelurahan_asal")
+  rtAsal            String? @map("rt_asal")
+  rwAsal            String? @map("rw_asal")
+
+  // Alamat Sekarang
+  alamatSekarang        String? @map("alamat_sekarang") @db.Text
+  provinsiSekarang      String? @map("provinsi_sekarang")
+  kotaKabupatenSekarang String? @map("kota_kabupaten_sekarang")
+  kecamatanSekarang     String? @map("kecamatan_sekarang")
+  kelurahanSekarang     String? @map("kelurahan_sekarang")
+  rtSekarang            String? @map("rt_sekarang")
+  rwSekarang            String? @map("rw_sekarang")
+
+  // Kontak
+  nomorTelepon   String? @map("nomor_telepon")
+  nomorHandphone String? @map("nomor_handphone")
+
+  // Lainnya
+  pendidikanTerakhir  String?              @map("pendidikan_terakhir")
+  statusMenikah       StatusMenikah        @default(belum_menikah) @map("status_menikah")
+  statusTempatTinggal StatusTempatTinggal? @map("status_tempat_tinggal")
+  sumberBiayaKuliah   SumberBiayaKuliah?   @map("sumber_biaya_kuliah")
+
+  nomorAskesBpjs         String? @map("nomor_askes_bpjs")
+  nomorIndukKependudukan String? @map("nomor_indux_kependudukan") // Typo 'indux' disesuaikan dengan migrasi
+  nomorKartuKeluarga     String? @map("nomor_kartu_keluarga")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relasi ke tabel Data Lainnya (1-to-1)
+  dataAkademik DataAkademik?
+  dataSekolah  DataSekolah?
+  dataKeluarga DataKeluarga?
+
+  @@map("mahasiswas")
+}
+
+model DataAkademik {
+  id          String    @id @default(uuid())
+  mahasiswaId String    @unique @map("mahasiswa_id")
+  mahasiswa   Mahasiswa @relation(fields: [mahasiswaId], references: [id], onDelete: Cascade)
+
+  jurusan          Jurusan?
+  programStudi     String?   @map("program_studi")
+  tanggalTerdaftar DateTime? @map("tanggal_terdaftar") @db.Date
+
+  tahunSemesterMulaiKuliah String? @map("tahun_semester_mulai_kuliah")
+  tahunSemesterBatasKuliah String? @map("tahun_semester_batas_kuliah")
+
+  statusAwalTerdaftar  String? @map("status_awal_terdaftar")
+  programKelas         String? @map("program_kelas")
+  konsentrasiProdi     String? @map("konsentrasi_prodi")
+  semesterAktif        String? @map("semester_aktif")
+  statusKuliahSemester String? @map("status_kuliah_semester")
+  kelas                String?
+  catatan              String? @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("data_akademiks")
+}
+
+model DataSekolah {
+  id          String    @id @default(uuid())
+  mahasiswaId String    @unique @map("mahasiswa_id")
+  mahasiswa   Mahasiswa @relation(fields: [mahasiswaId], references: [id], onDelete: Cascade)
+
+  nisn              String?
+  npsn              String?
+  jenisSmta         String? @map("jenis_smta")
+  namaSmta          String? @map("nama_smta")
+  kotaKabupatenSmta String? @map("kota_kabupaten_smta")
+  jurusanSmta       String? @map("jurusan_smta")
+  statusSmta        String? @map("status_smta")
+  tahunLulus        Int?    @map("tahun_lulus") // Menggunakan Int untuk Year
+
+  jumlahPelajaranUn Int?     @map("jumlah_pelajaran_un")
+  nilaiTotalUn      Decimal? @map("nilai_total_un") @db.Decimal(5, 2)
+
+  nomorIjazah           String?   @map("nomor_ijazah")
+  tanggalIjazah         DateTime? @map("tanggal_ijazah") @db.Date
+  jumlahPelajaranIjazah Int?      @map("jumlah_pelajaran_ijazah")
+  nilaiTotalIjazah      Decimal?  @map("nilai_total_ijazah") @db.Decimal(5, 2)
+
+  fileIjazahPath String? @map("file_ijazah_path")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("data_sekolahs")
+}
+
+model DataKeluarga {
+  id          String    @id @default(uuid())
+  mahasiswaId String    @unique @map("mahasiswa_id")
+  mahasiswa   Mahasiswa @relation(fields: [mahasiswaId], references: [id], onDelete: Cascade)
+
+  // --- AYAH ---
+  ayahNama               String?             @map("ayah_nama")
+  ayahTempatLahir        String?             @map("ayah_tempat_lahir")
+  ayahTanggalLahir       DateTime?           @map("ayah_tanggal_lahir") @db.Date
+  ayahKeadaan            KeadaanOrangTua?    @map("ayah_keadaan")
+  ayahTanggalMeninggal   DateTime?           @map("ayah_tanggal_meninggal") @db.Date
+  ayahPendidikanTerakhir PendidikanTerakhir? @map("ayah_pendidikan_terakhir")
+  ayahPekerjaan          String?             @map("ayah_pekerjaan")
+  ayahPenghasilan        Penghasilan?        @map("ayah_penghasilan")
+  ayahAlamat             String?             @map("ayah_alamat") @db.Text
+  ayahKota               String?             @map("ayah_kota")
+  ayahKodepos            String?             @map("ayah_kodepos")
+  ayahEmail              String?             @map("ayah_email")
+  ayahNik                String?             @map("ayah_nik")
+  ayahNoTelp             String?             @map("ayah_no_telp")
+  ayahNoHp               String?             @map("ayah_no_hp")
+
+  // --- IBU ---
+  ibuNama               String?             @map("ibu_nama")
+  ibuTempatLahir        String?             @map("ibu_tempat_lahir")
+  ibuTanggalLahir       DateTime?           @map("ibu_tanggal_lahir") @db.Date
+  ibuKeadaan            KeadaanOrangTua?    @map("ibu_keadaan")
+  ibuTanggalMeninggal   DateTime?           @map("ibu_tanggal_meninggal") @db.Date
+  ibuPendidikanTerakhir PendidikanTerakhir? @map("ibu_pendidikan_terakhir")
+  ibuPekerjaan          String?             @map("ibu_pekerjaan")
+  ibuPenghasilan        Penghasilan?        @map("ibu_penghasilan")
+  ibuAlamat             String?             @map("ibu_alamat") @db.Text
+  ibuKota               String?             @map("ibu_kota")
+  ibuKodepos            String?             @map("ibu_kodepos")
+  ibuEmail              String?             @map("ibu_email")
+  ibuNik                String?             @map("ibu_nik")
+  ibuNoTelp             String?             @map("ibu_no_telp")
+  ibuNoHp               String?             @map("ibu_no_hp")
+
+  // --- WALI ---
+  waliNama               String?             @map("wali_nama")
+  waliTempatLahir        String?             @map("wali_tempat_lahir")
+  waliTanggalLahir       DateTime?           @map("wali_tanggal_lahir") @db.Date
+  waliKeadaan            KeadaanWali?        @map("wali_keadaan") // Wali tidak punya opsi 'Bercerai' di migrasi
+  waliTanggalMeninggal   DateTime?           @map("wali_tanggal_meninggal") @db.Date
+  waliPendidikanTerakhir PendidikanTerakhir? @map("wali_pendidikan_terakhir")
+  waliPekerjaan          String?             @map("wali_pekerjaan")
+  waliPenghasilan        Penghasilan?        @map("wali_penghasilan")
+  waliAlamat             String?             @map("wali_alamat") @db.Text
+  waliKota               String?             @map("wali_kota")
+  waliKodepos            String?             @map("wali_kodepos")
+  waliEmail              String?             @map("wali_email")
+  waliNik                String?             @map("wali_nik")
+  waliNoTelp             String?             @map("wali_no_telp")
+  waliNoHp               String?             @map("wali_no_hp")
+
+  // --- SAUDARA ---
+  jumlahKakak          Int? @map("jumlah_kakak")
+  jumlahAdik           Int? @map("jumlah_adik")
+  jumlahTanggunganOrtu Int? @map("jumlah_tanggungan_ortu")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("data_keluargas")
+}

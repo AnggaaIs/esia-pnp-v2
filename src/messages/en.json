@@ -1,0 +1,99 @@
+{
+  "home": {
+    "title": "Welcome to ESIA PNP",
+    "description": "Get started by editing the page.tsx file."
+  },
+  "navigation": {
+    "templates": "Templates",
+    "learn": "Learn"
+  },
+  "login": {
+    "title": "LOGIN",
+    "welcome": "Welcome to the Academic Information System of Padang State Polytechnic! Please sign in to your account.",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "2411882290",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "submit": "Sign In",
+    "submitting": "Signing in...",
+    "api": {
+      "success": "Login successful, redirecting...",
+      "invalid_credentials": "Invalid username or password",
+      "missing_fields": "Username and password are required",
+      "server_error": "A server error occurred",
+      "unknown_error": "An unknown error occurred",
+      "turnstile_verification_failed": "Verification failed",
+      "connection_error": "Connection error"
+    },
+    "validation": {
+      "usernameRequired": "Username is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "turnstileRequired": "Verification is required"
+    },
+    "forgotPasswordDialog": {
+      "title": "Forgot Password?",
+      "description": "Please contact the academic admin to reset your password."
+    },
+    "passwordVisibility": {
+      "show": "Show password",
+      "hide": "Hide password"
+    },
+    "siteKeyError": "Site Key Error",
+    "devInfo": {
+      "title": "Account Information (Development)",
+      "admin": "Admin: username 'admin' | pass 'admin123'",
+      "mahasiswa": "Student: username '2411882290' | pass 'password123'"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back,",
+    "roleLabel": "Role",
+    "loading": "Loading user data...",
+    "error": "Failed to load user data",
+    "unauthorized": "Your session has expired, please login again"
+  },
+  "logout": {
+    "button": "Logout",
+    "loading": "Logging out...",
+    "success": "Successfully logged out",
+    "error": "Failed to logout",
+    "confirmTitle": "Confirm Logout",
+    "confirmMessage": "Are you sure you want to logout?"
+  },
+  "api": {
+    "user": {
+      "unauthorized": "Unauthorized",
+      "not_found": "User not found",
+      "error": "An error occurred while fetching user data"
+    },
+    "logout": {
+      "success": "Logout successful",
+      "error": "Logout failed"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "reset": "Reset",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "serverError": "Server error",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Access denied"
+  }
+}
