@@ -5,6 +5,7 @@ import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const googleSans = Google_Sans({
   subsets: ["latin"],
@@ -33,8 +34,10 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            {children}
-            <Toaster position={"top-right"} />
+            <TooltipProvider>
+              {children}
+              <Toaster position={"top-right"} />
+            </TooltipProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

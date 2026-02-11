@@ -120,11 +120,11 @@ export default function Login() {
       {/* login form */}
       <div className="w-full lg:w-[35%] flex flex-col justify-center relative p-8">
         {/* logo */}
-        <div className="absolute top-10 left-8 right-8 flex justify-between items-center ">
+        <div className="absolute top-10 left-8 right-8 flex justify-between items-center">
           <img
             src="/images/logo/logo-pnp.png"
             alt="PNP Logo"
-            className="w-12 h-auto"
+            className="w-11 h-auto"
           />
 
           <LanguageSwitcher />

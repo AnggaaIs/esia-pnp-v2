@@ -74,6 +74,25 @@
       "error": "Gagal logout"
     }
   },
+  "sidebar": {
+    "menu": {
+      "home": "Beranda",
+      "students": "Data Mahasiswa",
+      "krs": "Kartu Rencana Studi",
+      "khs": "Kartu Hasil Studi",
+      "invoices": "Tagihan"
+    },
+    "sections": {
+      "academic": "Menu Akademik"
+    },
+    "user": {
+      "signOut": "Keluar",
+      "noNim": "Tidak ada NIM"
+    },
+    "title": "Sidebar",
+    "mobileDescription": "Menampilkan sidebar seluler",
+    "toggle": "Buka/Tutup Sidebar"
+  },
   "common": {
     "loading": "Memuat...",
     "error": "Terjadi kesalahan",
@@ -88,7 +107,9 @@
     "reset": "Reset",
     "confirm": "Konfirmasi",
     "yes": "Ya",
-    "no": "Tidak"
+    "no": "Tidak",
+    "brandName": "ESIA PNP",
+    "switchLanguage": "Ganti ke {language}"
   },
   "errors": {
     "notFound": "Halaman tidak ditemukan",

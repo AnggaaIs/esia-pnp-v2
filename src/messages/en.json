@@ -55,6 +55,25 @@
     "error": "Failed to load user data",
     "unauthorized": "Your session has expired, please login again"
   },
+  "sidebar": {
+    "menu": {
+      "home": "Home",
+      "students": "Students",
+      "krs": "Study Plan Card",
+      "khs": "Study Result Card",
+      "invoices": "Invoices"
+    },
+    "sections": {
+      "academic": "Academic Menu"
+    },
+    "user": {
+      "signOut": "Sign out",
+      "noNim": "No NIM"
+    },
+    "title": "Sidebar",
+    "mobileDescription": "Displays the mobile sidebar",
+    "toggle": "Toggle Sidebar"
+  },
   "logout": {
     "button": "Logout",
     "loading": "Logging out...",
@@ -88,7 +107,9 @@
     "reset": "Reset",
     "confirm": "Confirm",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "brandName": "ESIA PNP",
+    "switchLanguage": "Switch to {language}"
   },
   "errors": {
     "notFound": "Page not found",
