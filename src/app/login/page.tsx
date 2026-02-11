@@ -20,12 +20,14 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export default function Login() {
   const t = useTranslations("login");
+  const codeLanguage = useLocale();
+
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
@@ -270,6 +272,9 @@ export default function Login() {
                       render={({ field: { onChange, value } }) => (
                         <Turnstile
                           ref={turnstileRef}
+                          options={{
+                            language: codeLanguage,
+                          }}
                           siteKey={TURNSTILE_SITE_KEY}
                           onSuccess={(token) => {
                             onChange(token);
